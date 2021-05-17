@@ -67,8 +67,15 @@ const (
 type ExecutionMode string
 
 const (
-	Default   ExecutionMode = "default"
-	Baremetal ExecutionMode = "baremetal"
+	Default                    ExecutionMode = "default"
+	Baremetal                  ExecutionMode = "baremetal"
+	NonOverlappingMultitenancy ExecutionMode = "nonOverlappingMultitenancy"
+)
+
+type ConnectivityType string
+
+const (
+	Snat ConnectivityType = "snat"
 )
 
 // NetPlugin represents the CNI network plugin.
