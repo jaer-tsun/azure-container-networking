@@ -4,6 +4,7 @@
 package ovsctl
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"net"
@@ -13,6 +14,7 @@ import (
 	"github.com/Azure/azure-container-networking/common"
 	"github.com/Azure/azure-container-networking/log"
 	"github.com/Azure/azure-container-networking/platform"
+	"github.com/coreos/go-systemd/v22/dbus"
 )
 
 const (
@@ -62,9 +64,12 @@ func NewOvsctl() Ovsctl {
 	if output, err := execcli.ExecuteCommand("lsb_release -is"); err == nil && strings.Contains(output, "Ubuntu") {
 		if output, err = execcli.ExecuteCommand("lsb_release -rs"); err == nil {
 			if version, _ := strconv.ParseFloat(strings.TrimSpace(output), strconv.IntSize); int32(version) >= defaultUbuntuMajorVerion {
-				if _, err = execcli.ExecuteCommand("systemctl is-active ovs-vswitchd"); err != nil {
-					if _, err = execcli.ExecuteCommand("systemctl start ovs-vswitchd"); err != nil {
-						log.Printf("[ovs] Failed to start ovs-vswitchd %v", err)
+				ctx := context.Background()
+				if conn, err := dbus.NewSystemdConnectionContext(ctx); err == nil {
+					defer conn.Close()
+
+					if _, err := conn.StartUnitContext(ctx, "ovs-vswitchd.service", "fail", nil); err != nil {
+						log.Printf("[ovs] Failed to start ovs-vswitchd err:%v", err)
 					}
 				}
 			}
