@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"net"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -29,7 +30,10 @@ const (
 	high = 20
 )
 
-var errorMockOvsctl = errors.New("MockOvsctlError")
+var (
+	errorMockOvsctl = errors.New("MockOvsctlError")
+	osRE            = regexp.MustCompile(`PRETTY_NAME="(.+)"`)
+)
 
 func newErrorOvsctl(errorString string) error {
 	return fmt.Errorf("%w: %v", errorMockOvsctl, errorString)
@@ -61,15 +65,18 @@ type Ovsctl struct {
 func NewOvsctl() Ovsctl {
 	execcli := platform.NewExecClient()
 	// try to ensure ovs-vswitchd is active (for Ubuntu 18), otherwise log failure to start the daemon
-	if output, err := execcli.ExecuteCommand("lsb_release -is"); err == nil && strings.Contains(output, "Ubuntu") {
-		if output, err = execcli.ExecuteCommand("lsb_release -rs"); err == nil {
-			if version, _ := strconv.ParseFloat(strings.TrimSpace(output), strconv.IntSize); int32(version) >= defaultUbuntuMajorVerion {
-				ctx := context.Background()
-				if conn, err := dbus.NewSystemdConnectionContext(ctx); err == nil {
-					defer conn.Close()
+	if output, err := execcli.ExecuteCommand("cat /etc/os-release"); err == nil {
+		if capture := osRE.FindStringSubmatch(output); len(capture) == 2 {
+			if fields := strings.Fields(capture[1]); fields[0] == "Ubuntu" {
+				versionTokens := strings.Split(fields[1], ".")
+				if majorVersion, _ := strconv.Atoi(versionTokens[0]); majorVersion >= defaultUbuntuMajorVerion {
+					ctx := context.Background()
+					if conn, err := dbus.NewSystemdConnectionContext(ctx); err == nil {
+						defer conn.Close()
 
-					if _, err := conn.StartUnitContext(ctx, "ovs-vswitchd.service", "fail", nil); err != nil {
-						log.Printf("[ovs] Failed to start ovs-vswitchd err:%v", err)
+						if _, err := conn.StartUnitContext(ctx, "ovs-vswitchd.service", "fail", nil); err != nil {
+							log.Printf("[ovs] Failed to start ovs-vswitchd err:%v", err)
+						}
 					}
 				}
 			}
