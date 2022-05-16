@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net"
+	"strconv"
 	"strings"
 
 	"github.com/Azure/azure-container-networking/common"
@@ -16,6 +17,7 @@ import (
 
 const (
 	defaultMacForArpResponse = "12:34:56:78:9a:bc"
+	defaultUbuntuMajorVerion = 18
 )
 
 // Open flow rule priorities. Higher the number higher the priority
@@ -55,7 +57,20 @@ type Ovsctl struct {
 }
 
 func NewOvsctl() Ovsctl {
-	return Ovsctl{execcli: platform.NewExecClient()}
+	execcli := platform.NewExecClient()
+	// try to ensure ovs-vswitchd is active (for Ubuntu 18), otherwise log failure to start the daemon
+	if output, err := execcli.ExecuteCommand("lsb_release -is"); err == nil && strings.Contains(output, "Ubuntu") {
+		if output, err = execcli.ExecuteCommand("lsb_release -rs"); err == nil {
+			if version, _ := strconv.ParseFloat(strings.TrimSpace(output), strconv.IntSize); int32(version) >= defaultUbuntuMajorVerion {
+				if _, err = execcli.ExecuteCommand("systemctl is-active ovs-vswitchd"); err != nil {
+					if _, err = execcli.ExecuteCommand("systemctl start ovs-vswitchd"); err != nil {
+						log.Printf("[ovs] Failed to start ovs-vswitchd %v", err)
+					}
+				}
+			}
+		}
+	}
+	return Ovsctl{execcli: execcli}
 }
 
 func (o Ovsctl) CreateOVSBridge(bridgeName string) error {
