@@ -240,6 +240,7 @@ func (invoker *CNSIPAMInvoker) Add(addConfig IPAMAddConfig) (IPAMAddResult, erro
 						Address: resultIPnet,
 						Gateway: ncgw,
 					})
+
 				defaultRoutes = append(defaultRoutes,
 					&cniTypes.Route{
 						Dst: defaultRouteDstPrefix,
