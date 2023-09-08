@@ -69,6 +69,12 @@ const (
 	Vxlan = "Vxlan"
 )
 
+// Address Types
+const (
+	Default   = "Default"
+	Secondary = "Secondary"
+)
+
 // ChannelMode :- CNS channel modes
 const (
 	Direct         = "Direct"
@@ -404,6 +410,10 @@ type PodIpInfo struct {
 	PodIPConfig                     IPSubnet
 	NetworkContainerPrimaryIPConfig IPConfiguration
 	HostPrimaryIPInfo               HostIPInfo
+	AddressType                     string
+	MacAddress                      string
+	IsDefaultInterface              bool
+	Routes                          []Route
 }
 
 type HostIPInfo struct {
