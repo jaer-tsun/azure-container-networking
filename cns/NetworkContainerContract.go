@@ -410,10 +410,14 @@ type PodIpInfo struct {
 	PodIPConfig                     IPSubnet
 	NetworkContainerPrimaryIPConfig IPConfiguration
 	HostPrimaryIPInfo               HostIPInfo
-	AddressType                     string
-	MacAddress                      string
-	IsDefaultInterface              bool
-	Routes                          []Route
+	// AddressType defines whether IP config is Default or Secondary
+	AddressType string
+	// MacAddress of (secondary) interface
+	MacAddress string
+	// IsDefaultInterface is true if traffic should go through this interface by default
+	IsDefaultInterface bool
+	// Routes to configure on interface (if IsDefaultInterface is false)
+	Routes []Route
 }
 
 type HostIPInfo struct {
