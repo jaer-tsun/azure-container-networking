@@ -281,8 +281,6 @@ func (invoker *CNSIPAMInvoker) Add(addConfig IPAMAddConfig) (IPAMAddResult, erro
 		addResult.defaultCniResult.ipResult.Routes = defaultRoutes
 	}
 
-	addResult.defaultCniResult.isDefaultInterface = !isDefaultInterfaceSet
-
 	return addResult, nil
 }
 
