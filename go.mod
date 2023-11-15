@@ -133,7 +133,7 @@ require (
 )
 
 require (
-	gotest.tools/v3 v3.5.0
+	gotest.tools/v3 v3.5.1
 	sigs.k8s.io/yaml v1.3.0
 )
 
