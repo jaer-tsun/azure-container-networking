@@ -1,10 +1,11 @@
 module github.com/Azure/azure-container-networking/build/tools
 
 go 1.21
+toolchain go1.22.5
 
 require (
 	github.com/AlekSi/gocov-xml v1.1.0
-	github.com/axw/gocov v1.1.0
+	github.com/axw/gocov v1.2.1
 	github.com/golang/mock v1.6.0
 	github.com/golangci/golangci-lint v1.59.1
 	github.com/jstemmer/go-junit-report v1.0.0
@@ -190,7 +191,7 @@ require (
 	go.uber.org/zap v1.26.0 // indirect
 	golang.org/x/exp v0.0.0-20240103183307-be819d1f06fc // indirect
 	golang.org/x/exp/typeparams v0.0.0-20240314144324-c7f7c6466f7f // indirect
-	golang.org/x/mod v0.18.0 // indirect
+	golang.org/x/mod v0.21.0 // indirect
 	golang.org/x/net v0.26.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
 	golang.org/x/sys v0.21.0 // indirect
