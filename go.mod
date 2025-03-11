@@ -10,7 +10,7 @@ require (
 	github.com/Microsoft/go-winio v0.6.1
 	github.com/Microsoft/hcsshim v0.12.0
 	github.com/avast/retry-go/v3 v3.1.1
-	github.com/avast/retry-go/v4 v4.6.0
+	github.com/avast/retry-go/v4 v4.6.1
 	github.com/billgraziano/dpapi v0.5.0
 	github.com/containernetworking/cni v1.2.2
 	github.com/docker/libnetwork v0.8.0-dev.2.0.20210525090646-64b7a4574d14
@@ -34,7 +34,7 @@ require (
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.19.0
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 	go.uber.org/zap v1.27.0
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d
 	golang.org/x/sys v0.22.0
