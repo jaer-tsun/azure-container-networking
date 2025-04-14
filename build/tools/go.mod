@@ -1,6 +1,7 @@
 module github.com/Azure/azure-container-networking/build/tools
 
 go 1.21
+toolchain go1.24.1
 
 require (
 	github.com/AlekSi/gocov-xml v1.1.0
@@ -10,7 +11,7 @@ require (
 	github.com/jstemmer/go-junit-report v1.0.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.4.0
 	google.golang.org/protobuf v1.34.2
-	mvdan.cc/gofumpt v0.6.0
+	mvdan.cc/gofumpt v0.8.0
 	sigs.k8s.io/controller-tools v0.13.0
 )
 
@@ -190,12 +191,12 @@ require (
 	go.uber.org/zap v1.26.0 // indirect
 	golang.org/x/exp v0.0.0-20240103183307-be819d1f06fc // indirect
 	golang.org/x/exp/typeparams v0.0.0-20240314144324-c7f7c6466f7f // indirect
-	golang.org/x/mod v0.18.0 // indirect
-	golang.org/x/net v0.26.0 // indirect
-	golang.org/x/sync v0.7.0 // indirect
-	golang.org/x/sys v0.21.0 // indirect
-	golang.org/x/text v0.16.0 // indirect
-	golang.org/x/tools v0.22.0 // indirect
+	golang.org/x/mod v0.24.0 // indirect
+	golang.org/x/net v0.39.0 // indirect
+	golang.org/x/sync v0.13.0 // indirect
+	golang.org/x/sys v0.32.0 // indirect
+	golang.org/x/text v0.24.0 // indirect
+	golang.org/x/tools v0.32.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
