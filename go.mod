@@ -1,6 +1,6 @@
 module github.com/Azure/azure-container-networking
 
-go 1.21
+go 1.22
 
 require (
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.12.0
@@ -136,7 +136,7 @@ require (
 	golang.org/x/sync v0.7.0
 	gotest.tools/v3 v3.5.1
 	k8s.io/kubectl v0.28.5
-	sigs.k8s.io/yaml v1.4.0
+	sigs.k8s.io/yaml v1.6.0
 )
 
 require (
@@ -148,6 +148,7 @@ require (
 	github.com/sagikazarmark/locafero v0.4.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect
 	github.com/sourcegraph/conc v0.3.0 // indirect
+	go.yaml.in/yaml/v2 v2.4.2 // indirect
 )
 
 replace (
