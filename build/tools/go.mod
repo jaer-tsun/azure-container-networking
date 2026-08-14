@@ -1,6 +1,6 @@
 module github.com/Azure/azure-container-networking/build/tools
 
-go 1.21
+go 1.23
 
 require (
 	github.com/AlekSi/gocov-xml v1.1.0
@@ -9,7 +9,7 @@ require (
 	github.com/golangci/golangci-lint v1.59.1
 	github.com/jstemmer/go-junit-report v1.0.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.4.0
-	google.golang.org/protobuf v1.34.2
+	google.golang.org/protobuf v1.36.12
 	mvdan.cc/gofumpt v0.6.0
 	sigs.k8s.io/controller-tools v0.13.0
 )
@@ -81,7 +81,7 @@ require (
 	github.com/golangci/plugin-module-register v0.1.1 // indirect
 	github.com/golangci/revgrep v0.5.3 // indirect
 	github.com/golangci/unconvert v0.0.0-20240309020433-c5143eacb3ed // indirect
-	github.com/google/go-cmp v0.6.0 // indirect
+	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/gordonklaus/ineffassign v0.1.0 // indirect
 	github.com/gostaticanalysis/analysisutil v0.7.1 // indirect
